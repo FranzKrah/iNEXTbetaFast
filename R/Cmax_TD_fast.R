@@ -7,8 +7,7 @@
 #' @importFrom parallel mclapply
 #' @details This function computes the Cmax_joint for taxonomic diversity which is the minimal sample coverage between all pairs of the sites.
 #' It splits the pairwise combinations of species into chunks and processes them in parallel across multiple CPU cores.
-#' This approach significantly reduces computation time for large datasets. Note that this function only runs on UNIX based systems (Linux, MacOS) due to the use of `mclapply`.
-# 'Runtime: On Ubuntu 24.04 with 192GB RAM on 16 cores, processing 200 sites with >20000 OTUs takes approximately 90 seconds. 1700 sites in 2280 seconds.
+#' This approach significantly reduces computation time for large datasets. Note that this function only runs on UNIX based systems (Linux, MacOS) due to the use of `mclapply`. Runtime: On Ubuntu 24.04 with 192GB RAM on 16 cores, processing 200 sites with >20000 OTUs takes approximately 90 seconds. 1700 sites in 2280 seconds.
 #' @references Chao, A., Thorn, S., Chiu, C.-H., Moyes, F., Hu, K.-H., Chazdon, R. L., Wu, J., Magnago, L. F. S., Dornelas, M., Zeleny, D., Colwell, R. K., and Magurran, A. E. (2023). Rarefaction and extrapolation with beta diversity under a framework of Hill numbers: the iNEXT.beta3D standardization. Ecological Monographs e1588.
 #' @export
 
