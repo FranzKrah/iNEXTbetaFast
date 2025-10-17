@@ -1,0 +1,20 @@
+Package: iNEXTbetaFast
+Type: Package
+Title: Fast coverage-based dissimilarity interpolation and extrapolation
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Krah", "Franz",
+      email = "krah@uni-bayreuth.de",
+      role = c("aut", "cre")
+    )
+  )
+Description: Fast implementation of beta taxonomic and phylogenetic coverage-based diversity following generally the iNEXT framework.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Depencende: R (>= 4.0)
+Depends: ape, iNEXT.3D, iNEXT.beta3D, parallel
+Suggests: 
+Config/testthat/edition: 3
+RoxygenNote: 7.3.3
