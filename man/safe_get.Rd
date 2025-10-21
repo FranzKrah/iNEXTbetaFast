@@ -17,3 +17,4 @@ Helper functions
 \details{
 Workaround proposed here \link{https://stackoverflow.com/questions/63023526/unexported-object-imported-by-a-call-tsfeaturesscalets}
 }
+\keyword{internal}

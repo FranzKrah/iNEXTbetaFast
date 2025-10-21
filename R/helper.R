@@ -3,6 +3,7 @@
 #' @param pkg R package from which to load the function from
 #' @details Workaround proposed here \link{https://stackoverflow.com/questions/63023526/unexported-object-imported-by-a-call-tsfeaturesscalets}
 #' @importFrom utils getFromNamespace
+#' @keywords internal
 
 safe_get <- function(fun, pkg) {
   if (fun %in% getNamespaceExports(pkg)) {
