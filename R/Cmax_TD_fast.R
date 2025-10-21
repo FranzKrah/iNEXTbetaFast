@@ -13,6 +13,8 @@
 
 Cmax_TD_fast <- function(com, ncores = 16, chunk_size = 5000) {
 
+  TDinfo <- safe_get("TDinfo", "iNEXT.3D")
+
   com <- as.data.frame(com)
   pairs <- combn(seq_len(ncol(com)), 2, simplify = FALSE)
 
@@ -26,7 +28,7 @@ Cmax_TD_fast <- function(com, ncores = 16, chunk_size = 5000) {
       local_min <- Inf
       for (idx in chunk) {
         val <- tryCatch(
-          iNEXT.3D:::TDinfo(as.vector(cbind(com[[idx[1]]], com[[idx[2]]])),
+          TDinfo(as.vector(cbind(com[[idx[1]]], com[[idx[2]]])),
                             datatype = "abundance")$`SC(2n)`,
           error = function(e) NA_real_
         )

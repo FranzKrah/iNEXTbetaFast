@@ -4,12 +4,19 @@
 #' @param level A numeric value indicating the coverage level for diversity estimation.
 #' @param PDtree A phylogenetic tree object of class 'phylo'.
 #' @return A list containing site names and dissimilarity estimates (Sørensen, Horn, Morisita-Horn).
-#' @details PDtype A character string indicating the type of phylogenetic diversity to compute (currently hard coded as "meanPD").
+#' @details PDtype A character string indicating the type of phylogenetic diversity to compute (currently hard coded as "meanPD"). Note that this computation is considerably slower than the taxonomic diversity.
+#' Runtime: Note that this computation is considerably slower than the taxonomic diversity \code{pairs_c_a_td}. The same dataset may easily take by a factor 50 longer.
 #' @references Chao, A., Thorn, S., Chiu, C.-H., Moyes, F., Hu, K.-H., Chazdon, R. L., Wu, J., Magnago, L. F. S., Dornelas, M., Zeleny, D., Colwell, R. K., and Magurran, A. E. (2023). Rarefaction and extrapolation with beta diversity under a framework of Hill numbers: the iNEXT.beta3D standardization. Ecological Monographs e1588.
-#' @import iNEXT.3D iNEXT.beta3D ape
+#' @import dplyr tibble
+#' @importFrom ape node.depth.edgelength drop.tip
 #' @export
 
 pair_c_a_pd <- function(pair_cols, com, level, PDtree) {
+
+
+  PhD.m.est <- safe_get("PhD.m.est", "iNEXT.3D")
+  phyBranchAL_Abu <- safe_get("phyBranchAL_Abu", "iNEXT.3D")
+  coverage_to_size <- safe_get("coverage_to_size", "iNEXT.beta3D")
 
   # Slice the two rows only
   data_pair <- com[, pair_cols , drop = FALSE]
@@ -19,10 +26,10 @@ pair_c_a_pd <- function(pair_cols, com, level, PDtree) {
 
   pool.name = names(pool.data[pool.data>0])
   tip = PDtree$tip.label[-match(pool.name, PDtree$tip.label)]
-  mytree = ape::drop.tip(PDtree, tip)
+  mytree = drop.tip(PDtree, tip)
 
   # H_max = get.rooted.tree.height(mytree)
-  reft = max(ape::node.depth.edgelength(mytree))
+  reft = max(node.depth.edgelength(mytree))
 
   n = sum(data_pair)
   # Compute gamma and alpha via estimate3D
@@ -30,8 +37,8 @@ pair_c_a_pd <- function(pair_cols, com, level, PDtree) {
   data_gamma <- data_gamma[data_gamma > 0]
   data_alpha <- as.vector(as.matrix(data_pair))
 
-  m_gamma = iNEXT.beta3D:::coverage_to_size(data_gamma, level, datatype='abundance')
-  m_alpha = iNEXT.beta3D:::coverage_to_size(data_alpha, level, datatype='abundance')
+  m_gamma = coverage_to_size(data_gamma, level, datatype='abundance')
+  m_alpha = coverage_to_size(data_alpha, level, datatype='abundance')
 
   pool.data = data_pair %>% data.frame %>% rownames_to_column()
   # pool.data = full_join(pool.data, data_pair %>% data.frame %>% rownames_to_column(), 'rowname')
@@ -40,16 +47,16 @@ pair_c_a_pd <- function(pair_cols, com, level, PDtree) {
 
   pool.name = names(pool.data[pool.data>0])
   tip = PDtree$tip.label[-match(pool.name, PDtree$tip.label)]
-  mytree = ape::drop.tip(PDtree, tip)
+  mytree = drop.tip(PDtree, tip)
 
 
-  aL <- iNEXT.3D:::phyBranchAL_Abu(phylo = PDtree, data = data_gamma, rootExtend = TRUE, refT = reft)
+  aL <- phyBranchAL_Abu(phylo = PDtree, data = data_gamma, rootExtend = TRUE, refT = reft)
   aL$treeNabu$branch.length = aL$BLbyT[,1]
   suppressMessages({
     aL_table_gamma = aL$treeNabu %>% select(branch.abun, branch.length, tgroup)
   })
 
-  gamma = iNEXT.3D:::PhD.m.est(ai = aL_table_gamma$branch.abun, Lis = as.matrix(aL_table_gamma$branch.length), m = m_gamma, nt = n, q = c(0,1,2), reft = reft, cal = "PD")
+  gamma = PhD.m.est(ai = aL_table_gamma$branch.abun, Lis = as.matrix(aL_table_gamma$branch.length), m = m_gamma, nt = n, q = c(0,1,2), reft = reft, cal = "PD")
 
 
   aL_table_alpha = c()
@@ -58,7 +65,7 @@ pair_c_a_pd <- function(pair_cols, com, level, PDtree) {
 
     x = data_pair[data_pair[,i]>0,i]
 
-    aL = iNEXT.3D:::phyBranchAL_Abu(phylo = PDtree, data = x, rootExtend = T, refT = reft)
+    aL = phyBranchAL_Abu(phylo = PDtree, data = x, rootExtend = T, refT = reft)
     aL$treeNabu$branch.length = aL$BLbyT[,1]
     suppressMessages({
       aL_table = aL$treeNabu %>% select(branch.abun, branch.length, tgroup)
@@ -69,7 +76,7 @@ pair_c_a_pd <- function(pair_cols, com, level, PDtree) {
   }
 
 
-  alpha = iNEXT.3D:::PhD.m.est(ai = aL_table_alpha$branch.abun, Lis = as.matrix(aL_table_alpha$branch.length), m = m_alpha, q = c(0,1,2), nt = n, reft = reft, cal = "PD")/N
+  alpha = PhD.m.est(ai = aL_table_alpha$branch.abun, Lis = as.matrix(aL_table_alpha$branch.length), m = m_alpha, q = c(0,1,2), nt = n, reft = reft, cal = "PD")/N
 
   # if (PDtype == 'meanPD') {
     gamma = gamma/reft

@@ -6,7 +6,7 @@
 #' @details This function computes pairwise dissimilarity estimates between two sites using TD diversity measures.
 #' It calculates gamma and alpha diversities and derives dissimilarity indices based on these values.
 #' @references Chao, A., Thorn, S., Chiu, C.-H., Moyes, F., Hu, K.-H., Chazdon, R. L., Wu, J., Magnago, L. F. S., Dornelas, M., Zeleny, D., Colwell, R. K., and Magurran, A. E. (2023). Rarefaction and extrapolation with beta diversity under a framework of Hill numbers: the iNEXT.beta3D standardization. Ecological Monographs e1588.
-#' @import iNEXT.3D iNEXT.beta3D
+#' @import iNEXT.3D
 #' @export
 
 pair_c_a_td <- function(pair_cols, com, level) {

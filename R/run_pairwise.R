@@ -8,11 +8,13 @@
 #' @return A data.table with the results of the pairwise computations
 #' @references Chao, A., Thorn, S., Chiu, C.-H., Moyes, F., Hu, K.-H., Chazdon, R. L., Wu, J., Magnago, L. F. S., Dornelas, M., Zeleny, D., Colwell, R. K., and Magurran, A. E. (2023). Rarefaction and extrapolation with beta diversity under a framework of Hill numbers: the iNEXT.beta3D standardization. Ecological Monographs e1588.
 #' @details Only use with ncores > 1.
-#' @import iNEXT.3D iNEXT.beta3D data.table
+#' @importFrom utils combn
 #' @importFrom parallel mclapply
+#' @importFrom data.table rbindlist
 #' @export
 
 run_pairwise <- function(com, fun, level = 0.8, ncores = 12, PDtree = NULL, chunk_size = 5000) {
+
 
   com_mat <- as.matrix(com)
   pairs <- combn(colnames(com_mat), 2, simplify = FALSE)

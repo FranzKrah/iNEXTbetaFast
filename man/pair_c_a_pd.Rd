@@ -22,7 +22,8 @@ A list containing site names and dissimilarity estimates (Sørensen, Horn, Moris
 Compute a single phylogenetic dissimilarity estimates between two sites
 }
 \details{
-PDtype A character string indicating the type of phylogenetic diversity to compute (currently hard coded as "meanPD").
+PDtype A character string indicating the type of phylogenetic diversity to compute (currently hard coded as "meanPD"). Note that this computation is considerably slower than the taxonomic diversity.
+Runtime: Note that this computation is considerably slower than the taxonomic diversity \code{pairs_c_a_td}. The same dataset may easily take by a factor 50 longer.
 }
 \references{
 Chao, A., Thorn, S., Chiu, C.-H., Moyes, F., Hu, K.-H., Chazdon, R. L., Wu, J., Magnago, L. F. S., Dornelas, M., Zeleny, D., Colwell, R. K., and Magurran, A. E. (2023). Rarefaction and extrapolation with beta diversity under a framework of Hill numbers: the iNEXT.beta3D standardization. Ecological Monographs e1588.
