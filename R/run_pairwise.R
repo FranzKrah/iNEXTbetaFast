@@ -7,7 +7,8 @@
 #' @param chunk_size Number of pairs to process in each chunk
 #' @return A data.table with the results of the pairwise computations
 #' @references Chao, A., Thorn, S., Chiu, C.-H., Moyes, F., Hu, K.-H., Chazdon, R. L., Wu, J., Magnago, L. F. S., Dornelas, M., Zeleny, D., Colwell, R. K., and Magurran, A. E. (2023). Rarefaction and extrapolation with beta diversity under a framework of Hill numbers: the iNEXT.beta3D standardization. Ecological Monographs e1588.
-#' @import iNEXT.3D iNEXT.beta3D
+#' @details Only use with ncores > 1.
+#' @import iNEXT.3D iNEXT.beta3D data.table
 #' @importFrom parallel mclapply
 #' @export
 
@@ -26,7 +27,7 @@ run_pairwise <- function(com, fun, level = 0.8, ncores = 12, PDtree = NULL, chun
       if (!is.null(PDtree)) args$PDtree <- PDtree
       do.call(fun, args)
     })
-  }, mc.cores = ncores)
+  }, mc.cores = ncores, mc.cleanup = TRUE)
 
   # Flatten results incrementally into a data.table
   res_dt <- rbindlist(lapply(res_list, function(chunk_res) {
