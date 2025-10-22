@@ -28,7 +28,6 @@ run_pairwise <- function(com, fun, level = 0.8, ncores = 12, PDtree = NULL, chun
 
   # Run computation in parallel using forked processes
   res_list <- mclapply(chunks, function(chunk) {
-    com_mat <- get("com_mat", envir = .GlobalEnv)
     lapply(chunk, function(pair_cols) {
       args <- list(pair_cols = pair_cols, com = com_mat, level = level)
       if (!is.null(PDtree)) {
