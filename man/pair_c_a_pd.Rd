@@ -4,7 +4,7 @@
 \alias{pair_c_a_pd}
 \title{Compute a single phylogenetic dissimilarity estimates between two sites}
 \usage{
-pair_c_a_pd(pair_cols, com, level, PDtree)
+pair_c_a_pd(pair_cols, com, level, PDtree, reft)
 }
 \arguments{
 \item{pair_cols}{A vector of two column names representing the pair of sites.}

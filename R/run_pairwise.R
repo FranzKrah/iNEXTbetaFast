@@ -22,14 +22,22 @@ run_pairwise <- function(com, fun, level = 0.8, ncores = 12, PDtree = NULL, chun
   # Split into chunks
   chunks <- split(pairs, ceiling(seq_along(pairs) / chunk_size))
 
+  if(!is.null(PDtree)){
+    reft <- max(node.depth.edgelength(PDtree))
+  }
+
   # Run computation in parallel using forked processes
   res_list <- mclapply(chunks, function(chunk) {
+    com_mat <- get("com_mat", envir = .GlobalEnv)
     lapply(chunk, function(pair_cols) {
       args <- list(pair_cols = pair_cols, com = com_mat, level = level)
-      if (!is.null(PDtree)) args$PDtree <- PDtree
+      if (!is.null(PDtree)) {
+        args$PDtree <- PDtree
+        args$reft <- reft
+      }
       do.call(fun, args)
     })
-  }, mc.cores = ncores, mc.cleanup = TRUE)
+  }, mc.cores = ncores, mc.cleanup = TRUE, mc.preschedule = TRUE)
 
   # Flatten results incrementally into a data.table
   res_dt <- rbindlist(lapply(res_list, function(chunk_res) {
