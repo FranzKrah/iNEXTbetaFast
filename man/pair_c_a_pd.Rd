@@ -14,6 +14,8 @@ pair_c_a_pd(pair_cols, com, level, PDtree, reft)
 \item{level}{A numeric value indicating the coverage level for diversity estimation.}
 
 \item{PDtree}{A phylogenetic tree object of class 'phylo'.}
+
+\item{reft}{Standardization of tree height}
 }
 \value{
 A list containing site names and dissimilarity estimates (Sørensen, Horn, Morisita-Horn).

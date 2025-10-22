@@ -3,6 +3,7 @@
 #' @param com A community data matrix (data.frame or matrix) with sites as columns and species as rows.
 #' @param level A numeric value indicating the coverage level for diversity estimation.
 #' @param PDtree A phylogenetic tree object of class 'phylo'.
+#' @param reft Standardization of tree height
 #' @return A list containing site names and dissimilarity estimates (Sørensen, Horn, Morisita-Horn).
 #' @details PDtype A character string indicating the type of phylogenetic diversity to compute (currently hard coded as "meanPD"). Note that this computation is considerably slower than the taxonomic diversity.
 #' Runtime: Note that this computation is considerably slower than the taxonomic diversity \code{pairs_c_a_td}. The same dataset may easily take by a factor 50 longer.
