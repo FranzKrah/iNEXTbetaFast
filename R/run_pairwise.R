@@ -4,7 +4,7 @@
 #' @param level A numeric value indicating the level parameter for the function
 #' @param ncores Number of cores to use for parallel processing
 #' @param PDtree An optional phylogenetic tree object
-#' @param chunk_size Number of pairs to process in each chunk
+#' @param chunk_size Number of pairs to process in each chunk, if NULL (default) then the size is computed automatically
 #' @return A data.table with the results of the pairwise computations
 #' @references Chao, A., Thorn, S., Chiu, C.-H., Moyes, F., Hu, K.-H., Chazdon, R. L., Wu, J., Magnago, L. F. S., Dornelas, M., Zeleny, D., Colwell, R. K., and Magurran, A. E. (2023). Rarefaction and extrapolation with beta diversity under a framework of Hill numbers: the iNEXT.beta3D standardization. Ecological Monographs e1588.
 #' @details Only use with ncores > 1.
@@ -13,11 +13,22 @@
 #' @importFrom data.table rbindlist
 #' @export
 
-run_pairwise <- function(com, fun, level = 0.8, ncores = 12, PDtree = NULL, chunk_size = 5000) {
-
+run_pairwise <- function(com, fun, level = 0.8, ncores = 12, PDtree = NULL, chunk_size = NULL) {
 
   com_mat <- as.matrix(com)
   pairs <- combn(colnames(com_mat), 2, simplify = FALSE)
+  total_pairs <- length(pairs)
+
+  # --- auto-tune chunk size ---
+  if (is.null(chunk_size)) {
+    # Aim for about 3 to 5 times as many chunks as cores for good load balance
+    target_chunks <- ncores * 4
+    chunk_size <- ceiling(total_pairs / target_chunks)
+    # Keep it within reasonable bounds
+    chunk_size <- max(200, min(5000, chunk_size))
+    message(sprintf("Auto-selected chunk size = %d with approx %d total pairs and %d cores",
+                    chunk_size, total_pairs, ncores))
+  }
 
   # Split into chunks
   chunks <- split(pairs, ceiling(seq_along(pairs) / chunk_size))

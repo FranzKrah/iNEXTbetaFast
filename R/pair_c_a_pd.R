@@ -14,12 +14,12 @@
 pair_c_a_pd <- function(pair_cols, com, level, PDtree) {
 
   # --- load helpers once ---
-  PhD.m.est <- safe_get("PhD.m.est", "iNEXT.3D")
-  phyBranchAL_Abu <- safe_get("phyBranchAL_Abu", "iNEXT.3D")
-  coverage_to_size <- safe_get("coverage_to_size", "iNEXT.beta3D")
+  # PhD.m.est <- safe_get("PhD.m.est", "iNEXT.3D")
+  # phyBranchAL_Abu <- safe_get("phyBranchAL_Abu", "iNEXT.3D")
+  # coverage_to_size <- safe_get("coverage_to_size", "iNEXT.beta3D")
 
   # --- subset columns for this pair ---
-  data_pair <- as.matrix(com[, pair_cols, drop = FALSE])
+  data_pair <- com[, pair_cols, drop = FALSE]
 
   # --- pool (gamma) data ---
   data_gamma <- rowSums(data_pair)
@@ -35,7 +35,7 @@ pair_c_a_pd <- function(pair_cols, com, level, PDtree) {
   #
   pool.name = names(data_gamma[data_gamma>0])
   tip = PDtree$tip.label[-match(pool.name, PDtree$tip.label)]
-  reft = max(ape::node.depth.edgelength( ape::drop.tip(PDtree, tip)))
+  reft = max(node.depth.edgelength( drop.tip(PDtree, tip)))
 
   rm(pool.name)
   rm(tip)

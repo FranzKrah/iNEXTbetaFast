@@ -10,7 +10,7 @@ run_pairwise(
   level = 0.8,
   ncores = 12,
   PDtree = NULL,
-  chunk_size = 5000
+  chunk_size = NULL
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ run_pairwise(
 
 \item{PDtree}{An optional phylogenetic tree object}
 
-\item{chunk_size}{Number of pairs to process in each chunk}
+\item{chunk_size}{Number of pairs to process in each chunk, if NULL (default) then the size is computed automatically}
 }
 \value{
 A data.table with the results of the pairwise computations
