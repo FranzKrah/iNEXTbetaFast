@@ -22,10 +22,6 @@ run_pairwise <- function(com, fun, level = 0.8, ncores = 12, PDtree = NULL, chun
   # Split into chunks
   chunks <- split(pairs, ceiling(seq_along(pairs) / chunk_size))
 
-  if(!is.null(PDtree)){
-    reft <- max(node.depth.edgelength(PDtree))
-  }
-
   # Run computation in parallel using forked processes
   res_list <- mclapply(chunks, function(chunk) {
     lapply(chunk, function(pair_cols) {

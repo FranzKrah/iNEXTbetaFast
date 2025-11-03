@@ -1,7 +1,7 @@
 #' Helper functions
 #' @param fun Function to be loaded from a package function that is not exported from that package (not in NAMESPACE)
 #' @param pkg R package from which to load the function from
-#' @details Workaround proposed here \link{https://stackoverflow.com/questions/63023526/unexported-object-imported-by-a-call-tsfeaturesscalets}
+#' @details Workaround proposed here https://stackoverflow.com/questions/63023526/unexported-object-imported-by-a-call-tsfeaturesscalets
 #' @importFrom utils getFromNamespace
 #' @keywords internal
 

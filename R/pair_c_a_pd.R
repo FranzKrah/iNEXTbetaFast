@@ -3,7 +3,6 @@
 #' @param com A community data matrix (data.frame or matrix) with sites as columns and species as rows.
 #' @param level A numeric value indicating the coverage level for diversity estimation.
 #' @param PDtree A phylogenetic tree object of class 'phylo'.
-#' @param reft Standardization of tree height
 #' @return A list containing site names and dissimilarity estimates (Sørensen, Horn, Morisita-Horn).
 #' @details PDtype A character string indicating the type of phylogenetic diversity to compute (currently hard coded as "meanPD"). Note that this computation is considerably slower than the taxonomic diversity.
 #' Runtime: Note that this computation is considerably slower than the taxonomic diversity \code{pairs_c_a_td}. The same dataset may easily take by a factor 50 longer.
@@ -12,7 +11,7 @@
 #' @importFrom ape node.depth.edgelength drop.tip
 #' @export
 
-pair_c_a_pd <- function(pair_cols, com, level, PDtree, reft) {
+pair_c_a_pd <- function(pair_cols, com, level, PDtree) {
 
   # --- load helpers once ---
   PhD.m.est <- safe_get("PhD.m.est", "iNEXT.3D")
@@ -32,6 +31,14 @@ pair_c_a_pd <- function(pair_cols, com, level, PDtree, reft) {
   # --- coverage-based sizes ---
   m_gamma <- coverage_to_size(data_gamma, level, datatype = "abundance")
   m_alpha <- coverage_to_size(as.vector(data_pair), level, datatype = "abundance")
+
+  #
+  pool.name = names(data_gamma[data_gamma>0])
+  tip = PDtree$tip.label[-match(pool.name, PDtree$tip.label)]
+  reft = max(ape::node.depth.edgelength( ape::drop.tip(PDtree, tip)))
+
+  rm(pool.name)
+  rm(tip)
 
   # --- gamma ---
   aL_gamma <- phyBranchAL_Abu(PDtree, data_gamma, rootExtend = TRUE, refT = reft)
@@ -75,12 +82,15 @@ pair_c_a_pd <- function(pair_cols, com, level, PDtree, reft) {
   C_q1 <- log(beta[2]) / log(2)
   C_q2 <- (beta[3]^(1 - 2) - 1) / (2^(1 - 2) - 1)
 
+  # C = beta %>% mutate(Estimate = ifelse(Order.q == 1, log(Estimate)/log(N), (Estimate^(1 - Order.q) - 1)/(N^(1 - Order.q) - 1)))
+
+
   list(
     site1 = pair_cols[1],
     site2 = pair_cols[2],
-    sor_est = as.numeric(1 - C_q0),
-    hor_est = as.numeric(1 - C_q1),
-    mor_hor_est = as.numeric(1 - C_q2)
+    sor_est = as.numeric(1-C_q0),
+    hor_est = as.numeric(1-C_q1),
+    mor_hor_est = as.numeric(1-C_q2)
   )
 }
 
