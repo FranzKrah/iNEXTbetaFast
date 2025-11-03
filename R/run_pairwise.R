@@ -28,7 +28,6 @@ run_pairwise <- function(com, fun, level = 0.8, ncores = 12, PDtree = NULL, chun
       args <- list(pair_cols = pair_cols, com = com_mat, level = level)
       if (!is.null(PDtree)) {
         args$PDtree <- PDtree
-        args$reft <- reft
       }
       do.call(fun, args)
     })
