@@ -2,7 +2,7 @@
 % Please edit documentation in R/pair_c_a_pd.R
 \name{pair_c_a_pd}
 \alias{pair_c_a_pd}
-\title{Compute a single phylogenetic dissimilarity estimates between two sites}
+\title{Compute a single phylogenetic similarity estimates between two sites}
 \usage{
 pair_c_a_pd(pair_cols, com, level, PDtree)
 }
@@ -16,10 +16,10 @@ pair_c_a_pd(pair_cols, com, level, PDtree)
 \item{PDtree}{A phylogenetic tree object of class 'phylo'.}
 }
 \value{
-A list containing site names and dissimilarity estimates (Sørensen, Horn, Morisita-Horn).
+A list containing site names and similarity estimates (Sørensen, Horn, Morisita-Horn).
 }
 \description{
-Compute a single phylogenetic dissimilarity estimates between two sites
+Compute a single phylogenetic similarity estimates between two sites
 }
 \details{
 PDtype A character string indicating the type of phylogenetic diversity to compute (currently hard coded as "meanPD"). Note that this computation is considerably slower than the taxonomic diversity.

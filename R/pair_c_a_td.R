@@ -1,9 +1,9 @@
-#' Compute a single pairwise dissimilarity estimates based on TD diversity
+#' Compute a single pairwise similarity estimates based on TD diversity
 #' @param pair_cols A vector of two column names representing the pair of sites.
 #' @param com A community data matrix (data.frame or matrix) with sites as columns and species as rows.
 #' @param level A numeric value indicating the coverage level for diversity estimation.
-#' @return A list containing site names and dissimilarity estimates (Sørensen, Horn, Morisita-Horn).
-#' @details This function computes pairwise dissimilarity estimates between two sites using TD diversity measures.
+#' @return A list containing site names and similarity estimates (Sørensen, Horn, Morisita-Horn).
+#' @details This function computes pairwise similarity estimates between two sites using TD diversity measures.
 #' It calculates gamma and alpha diversities and derives dissimilarity indices based on these values.
 #' @references Chao, A., Thorn, S., Chiu, C.-H., Moyes, F., Hu, K.-H., Chazdon, R. L., Wu, J., Magnago, L. F. S., Dornelas, M., Zeleny, D., Colwell, R. K., and Magurran, A. E. (2023). Rarefaction and extrapolation with beta diversity under a framework of Hill numbers: the iNEXT.beta3D standardization. Ecological Monographs e1588.
 #' @import iNEXT.3D

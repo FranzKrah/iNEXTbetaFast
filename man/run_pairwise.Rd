@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_pairwise.R
 \name{run_pairwise}
 \alias{run_pairwise}
-\title{Run pairwise computations in parallel using forked processes}
+\title{Run pairwise similarity computations in parallel using forked processes}
 \usage{
 run_pairwise(
   com,
@@ -27,10 +27,10 @@ run_pairwise(
 \item{chunk_size}{Number of pairs to process in each chunk, if NULL (default) then the size is computed automatically}
 }
 \value{
-A data.table with the results of the pairwise computations
+A data.table with the results of the pairwise computations of similarities according to \code{fun}
 }
 \description{
-Run pairwise computations in parallel using forked processes
+Run pairwise similarity computations in parallel using forked processes
 }
 \details{
 Only use with ncores > 1.

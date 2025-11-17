@@ -2,7 +2,7 @@
 % Please edit documentation in R/pair_c_a_td.R
 \name{pair_c_a_td}
 \alias{pair_c_a_td}
-\title{Compute a single pairwise dissimilarity estimates based on TD diversity}
+\title{Compute a single pairwise similarity estimates based on TD diversity}
 \usage{
 pair_c_a_td(pair_cols, com, level)
 }
@@ -14,13 +14,13 @@ pair_c_a_td(pair_cols, com, level)
 \item{level}{A numeric value indicating the coverage level for diversity estimation.}
 }
 \value{
-A list containing site names and dissimilarity estimates (Sørensen, Horn, Morisita-Horn).
+A list containing site names and similarity estimates (Sørensen, Horn, Morisita-Horn).
 }
 \description{
-Compute a single pairwise dissimilarity estimates based on TD diversity
+Compute a single pairwise similarity estimates based on TD diversity
 }
 \details{
-This function computes pairwise dissimilarity estimates between two sites using TD diversity measures.
+This function computes pairwise similarity estimates between two sites using TD diversity measures.
 It calculates gamma and alpha diversities and derives dissimilarity indices based on these values.
 }
 \references{
