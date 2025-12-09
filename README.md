@@ -14,7 +14,7 @@ From my experience on mac N-2 is fine, on Ubuntu N-6 is ok but it all depends on
 
 ```r
 install.packages("devtools")
-devtools:install_github("FranzKrah/iNEXTbetaFast")
+devtools::install_github("FranzKrah/iNEXTbetaFast")
 ```
 
 and then use it by typing ... 
@@ -35,7 +35,7 @@ Cmax_joint <- Cmax_TD_fast(otu_table_ITS, ncores = 2)
 # Estimate
 beta_td <- run_pairwise(otu_table_ITS, pair_c_a_td, level = Cmax_joint, ncores = 10)
 
-# Distance matrix
+# Similarity matrix
 d_q0 <- pair2dist(beta_td, colname = "sor_est")
 d_q1 <- pair2dist(beta_td, colname = "hor_est")
 d_q2 <- pair2dist(beta_td, colname = "mor_hor_est")

@@ -11,6 +11,10 @@
 #' @importFrom utils combn
 #' @importFrom parallel mclapply
 #' @importFrom data.table rbindlist
+#' @examples
+#' # library(microeco)
+#' # data(otu_table_ITS)
+#' # beta_td <- run_pairwise(otu_table_ITS, pair_c_a_td, ncores = 10)
 #' @export
 
 run_pairwise <- function(com, fun, level = 0.8, ncores = 12, PDtree = NULL, chunk_size = NULL) {
@@ -48,6 +52,12 @@ run_pairwise <- function(com, fun, level = 0.8, ncores = 12, PDtree = NULL, chun
   res_dt <- rbindlist(lapply(res_list, function(chunk_res) {
     rbindlist(lapply(chunk_res, function(x) as.list(x)))
   }))
+
+  res_dt[, (3:5) := lapply(.SD, function(x) {
+    x[x > 1] <- 1
+    x[x < 0] <- 0
+    x
+  }), .SDcols = 3:5]
 
   return(res_dt)
 }

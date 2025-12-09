@@ -35,6 +35,11 @@ Run pairwise similarity computations in parallel using forked processes
 \details{
 Only use with ncores > 1.
 }
+\examples{
+# library(microeco)
+# data(otu_table_ITS)
+# beta_td <- run_pairwise(otu_table_ITS, pair_c_a_td, ncores = 10)
+}
 \references{
 Chao, A., Thorn, S., Chiu, C.-H., Moyes, F., Hu, K.-H., Chazdon, R. L., Wu, J., Magnago, L. F. S., Dornelas, M., Zeleny, D., Colwell, R. K., and Magurran, A. E. (2023). Rarefaction and extrapolation with beta diversity under a framework of Hill numbers: the iNEXT.beta3D standardization. Ecological Monographs e1588.
 }
