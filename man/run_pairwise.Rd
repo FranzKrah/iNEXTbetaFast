@@ -34,6 +34,7 @@ Run pairwise similarity computations in parallel using forked processes
 }
 \details{
 Only use with ncores > 1.
+The code was originally developed by Oliver Mitesser.
 }
 \examples{
 # library(microeco)

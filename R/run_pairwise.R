@@ -7,7 +7,10 @@
 #' @param chunk_size Number of pairs to process in each chunk, if NULL (default) then the size is computed automatically
 #' @return A data.table with the results of the pairwise computations of similarities according to \code{fun}
 #' @references Chao, A., Thorn, S., Chiu, C.-H., Moyes, F., Hu, K.-H., Chazdon, R. L., Wu, J., Magnago, L. F. S., Dornelas, M., Zeleny, D., Colwell, R. K., and Magurran, A. E. (2023). Rarefaction and extrapolation with beta diversity under a framework of Hill numbers: the iNEXT.beta3D standardization. Ecological Monographs e1588.
-#' @details Only use with ncores > 1.
+#' @details
+#' Only use with ncores > 1.
+#' The code was originally developed by Oliver Mitesser.
+#'
 #' @importFrom utils combn
 #' @importFrom parallel mclapply
 #' @importFrom data.table rbindlist
